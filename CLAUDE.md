@@ -3,7 +3,7 @@
 Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própria), feito em HTML + Canvas num arquivo só. O dono é o Estêvan; responda em português do Brasil, com tuteio ("podes", "queres").
 
 - Jogo publicado: https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G (o link que os amigos recebem; viewers veem cada nova versão na hora)
-- Versão atual: v0.14 (pronta na pasta, ainda não publicada; o link está na v0.13)
+- Versão atual: v0.14 (publicada no link em 05/11/2026)
 - Estado detalhado, decisões e números: @docs/estado.md
 - Histórico de versões: @docs/historico.md
 - Plano de ação (fases, ordem sugerida e decisões pendentes): docs/plano.md
@@ -33,7 +33,7 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 | loop | `layout` (proporção, faixas de placar e de gramado, modo toque), `resize`, `frame`, interpolação, medidor de fps, resolução dinâmica |
 | visual do jogador e clubes / salvamento / carreira / interface | catálogos (`SHOP`, `SKINS`, `CLUBS`, `TIERS`), `SAVE` (localStorage + conta), temporadas, partidas da carreira, telas HTML (`SCREENS`, `ACT`) |
 | painel | `SPEC`: sliders do painel de ajuste (cada parâmetro novo de física entra aqui e em `DEF`) |
-| UI / toque / boot | botões do topo, controles de toque, `initOwner` (painel só para o dono), gancho de depuração `window.__arena`, `start` |
+| UI / toque / boot | botões do topo, controles de toque, controle de Xbox (`padPoll`/`padNav`: vira "teclas" `GP0L`, `GP0J`... lidas em `humanInput`; `GPAD` = controle em uso), `initOwner` (painel só para o dono), gancho de depuração `window.__arena`, `start` |
 
 ## Regras do projeto
 
@@ -59,6 +59,7 @@ python testes/fisica.py     # pique e fôlego, condução, domínio perfeito, vo
 python testes/telas.py      # tela cheia 16:9 / 16:10 / 21:9, toque no celular e tablet, versão pública
 python testes/treino.py     # treino guiado, nome do lance, resumo, pausa, opinião, estreia fácil
 python testes/especiais.py  # barra, folha seca, bicicleta, caneta, muralha, CPU, carreira, botão de toque, painel
+python testes/controle.py   # controle de Xbox simulado: menu, partida, pausa, vestiário, carreira, celular, 2 controles
 ```
 
 No Windows deste computador o Python não está no PATH do terminal do Claude: usar `"$LOCALAPPDATA/Programs/Python/Python312/python.exe"` (no Bash) e `PYTHONIOENCODING=utf-8`. `comum.abrir()` marca o treino como já oferecido (`treino_visto=True`), senão a primeira partida para na pergunta do treino.

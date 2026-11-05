@@ -1,12 +1,12 @@
 # FC Cabeçudos: estado do protótipo
 
-Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.13 (publicada em 05/11/2026). A v0.14 está pronta na pasta local, ainda não publicada. Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
+Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.14 (publicada em 05/11/2026). Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
 
 Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head Soccer no claude.ai. Ao mudar algo importante aqui, vale avisar o Estêvan para atualizar lá também (ou atualizar pelo Cowork).
 
 ## Pasta local
 - Fica em Documentos\FC Cabecudos, no computador do Estêvan (desk-est, Windows 11). Criada em 05/11/2026 para trabalhar com o Claude Code.
-- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py`, `python testes/treino.py`, `python testes/especiais.py` (Playwright + Chromium; Python 3.12 instalado para o usuário em 05/11/2026).
+- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py`, `python testes/treino.py`, `python testes/especiais.py`, `python testes/controle.py` (Playwright + Chromium; Python 3.12 instalado para o usuário em 05/11/2026).
 - Git iniciado em 05/11/2026 (branch main, primeiro commit = v0.12).
 - Plano de ação com as próximas versões: `docs/plano.md`.
 
@@ -18,6 +18,12 @@ Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head
 - CPU: cada adversário da carreira tem um especial sorteado pelo nome do clube (até o elenco chegar); no amistoso, sorteado a cada partida. Reação pela força (specDelay de 1 s na mais fraca a 0,08 s na mais forte); segura o chute comum enquanto espera a hora do especial.
 - Salvamento (v1): `profile.owned.spec` (lista de textos), `profile.look.spec` (o escolhido para a carreira), `profile.fspec` (o do amistoso), `career.season.newSpec` (o liberado naquela temporada). Salvamento antigo com carreira ganha 1 + um por degrau já vencido.
 - Base para a v0.15: `mkPlayer` recebe o especial e cada jogador tem `attr` (spd, jump, kick, head; todos 1) e `hrK` (escala da cabeça); `rHead(p)` dá o raio da cabeça de cada um.
+
+## Controle de Xbox (v0.14)
+- Gamepad API, layout padrão: analógico ou direcional anda, A pula, X cavadinha, B voleio, Y domínio, RT/LT pique, RB/LB especial, Menu pausa, Exibir (treino: pula o passo; pausa: menu ou abandonar). Pausa: A volta, Y reinicia o amistoso. Fim do amistoso: A revanche, B menu. Telas HTML: direcional move o foco (o botão mais próximo naquela direção), A aperta, B volta, LB/RB trocam a aba do vestiário.
+- Primeiro controle = jogador 1; no modo 2 jogadores, o segundo controle é o jogador 2 (com um controle só, o jogador 2 continua no teclado). O botão que veio apertado de uma tela (o A que começou a partida) só vale depois de solto.
+- No celular, controle em uso esconde os botões da tela e a faixa deles (o campo cresce); tocar na tela traz de volta. Com dois controles, o "2 jogadores" aparece no menu do toque.
+- Não confirmado no link publicado: o claude.ai mostra o jogo dentro de um quadro, e o navegador pode bloquear o controle ali. Testado só com controle simulado (`testes/controle.py`).
 
 ## Primeiros minutos (v0.13)
 - Treino guiado: 8 passos sem adversário (o P2 fica como "fantasma", fora do campo e sem colisão). Oferecido uma vez (`SAVE.profile.tut`: 1 = oferecido, 2 = concluído) na primeira vez que a pessoa escolhe Carreira ou Amistoso; sempre no menu.
