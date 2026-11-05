@@ -3,7 +3,7 @@
 Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própria), feito em HTML + Canvas num arquivo só. O dono é o Estêvan; responda em português do Brasil, com tuteio ("podes", "queres").
 
 - Jogo publicado: https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G (o link que os amigos recebem; viewers veem cada nova versão na hora)
-- Versão atual: v0.13 (publicada)
+- Versão atual: v0.14 (pronta na pasta, ainda não publicada; o link está na v0.13)
 - Estado detalhado, decisões e números: @docs/estado.md
 - Histórico de versões: @docs/historico.md
 - Plano de ação (fases, ordem sugerida e decisões pendentes): docs/plano.md
@@ -22,10 +22,11 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 | campo | constantes do mundo (W=1920 × H=810, GROUND_Y=716), `DEF` (física padrão), `T` (valores atuais) |
 | áudio | `Snd`: síntese em tempo real (WebAudio), sem arquivos de som |
 | input / util / estado | teclado (`held`/`edge`), `G` (estado global), `mkPlayer`, `mkBall`, `newMatch`, `demoMatch` |
-| física: jogador | `stepPlayer` (corrida, pique e fôlego, pulo, chute, domínio), `updateLeg`, voleio de lado (`volleyRel`) |
-| física: bola | `resolveBall`, `ballWorld` (gravidade, arrasto, curva do voleio no ar, travessão) |
+| física: jogador | `stepPlayer` (corrida, pique e fôlego, pulo, chute, domínio, armar o especial), `updateLeg`, voleio de lado (`volleyRel`), raio da cabeça de cada um (`rHead`, `HO(p)`) |
+| física: bola | `resolveBall`, `ballWorld` (gravidade, arrasto, curva do voleio no ar, travessão), `ball.fx` (bola de especial) |
 | contatos jogador × bola | `kickCheck` (cavadinha `chipLaunch` e voleio, bônus embalado), `controlCheck` (domínio), `bodyCheck`, `conduct` |
-| CPU | `aiInput` (força em escala contínua, ver `aiParams`/`AI_ANCH`) |
+| especiais | `SPECIAL` (catálogo), barra (`charge`), `armSpecial`, `specialTick`, `fireFolha`/`fireBici`/`biciStrike`/`fireCaneta`/`fireMuralha`, `ballSpecial` (queda da folha seca, rolada da caneta) |
+| CPU | `aiInput` (força em escala contínua, ver `aiParams`/`AI_ANCH`), `aiSpecialWant`/`dangerFor` (quando usar o especial) |
 | fluxo da partida | `update` (passo fixo de 1/120 s), gol e nome do lance (`goalCall`, `KIND_TXT`), fim de jogo, resumo (`matchStats`), morte súbita, empate na carreira |
 | treino | `TRAIN` (os 8 passos), `startTrain`, `trainSetup`/`trainTick`/`trainEvent`, painel `drawTrain` |
 | menu / render | menu do canvas, `render`, campos (`STAGES`, `paintVarzea`, `paintStadium`), jogador (`drawPlayer`, cabelos e acessórios), bola, HUD |
@@ -40,7 +41,8 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 - Textos do jogo em português do Brasil.
 - Clubes, campeonatos e marcas sempre inventados (a copa continental é a "Liga Suprema"). Nada de nomes, escudos ou marcas reais.
 - Personagens originais; não copiar o visual do Head Soccer.
-- Preferências de jogo já decididas: sem atraso nem tremor de câmera no contato com a bola, sem câmera lenta no gol, apito mínimo, especial genérico desligado (`SPECIALS=false`, cada personagem terá o seu).
+- Preferências de jogo já decididas: sem atraso nem tremor de câmera no contato com a bola, sem câmera lenta no gol, apito mínimo, nada de especial genérico: cada personagem tem o seu (catálogo `SPECIAL`; o genérico antigo saiu na v0.14).
+- Personagens: elenco fixo no amistoso e nos adversários da carreira (v0.15); na carreira, o cabeçudo do vestiário libera e escolhe especiais. Atributos de cada jogador ficam em `p.attr` (multiplicadores sobre `DEF`).
 - Física: os valores padrão ficam em `DEF` e só mudam quando o Estêvan pedir (ele ajusta pelo painel e manda o bloco "física vX"). Parâmetro novo: acrescentar em `DEF` e em `SPEC`.
 - Ao fechar uma versão: atualizar o número em três lugares (tagline no topo, a constante `VERSION` no começo do script, usada no bloco "física vX" e no texto de opinião, e o rodapé "Nesta versão"), mais `docs/historico.md` e `docs/estado.md`.
 - Salvamento (`SAVE`, formato v1): nunca usar arrays dentro de arrays (o banco da conta não aceita). Rodadas da tabela ficam como texto ("0-3,1-2").
@@ -56,11 +58,12 @@ python testes/carreira.py   # carreira inteira (27 jogos), empate, eliminação,
 python testes/fisica.py     # pique e fôlego, condução, domínio perfeito, voleio embalado
 python testes/telas.py      # tela cheia 16:9 / 16:10 / 21:9, toque no celular e tablet, versão pública
 python testes/treino.py     # treino guiado, nome do lance, resumo, pausa, opinião, estreia fácil
+python testes/especiais.py  # barra, folha seca, bicicleta, caneta, muralha, CPU, carreira, botão de toque, painel
 ```
 
 No Windows deste computador o Python não está no PATH do terminal do Claude: usar `"$LOCALAPPDATA/Programs/Python/Python312/python.exe"` (no Bash) e `PYTHONIOENCODING=utf-8`. `comum.abrir()` marca o treino como já oferecido (`treino_visto=True`), senão a primeira partida para na pergunta do treino.
 
-Cada teste imprime OK/FALHOU por verificação e salva capturas em `testes/capturas/`. Rode os três antes de considerar uma versão pronta, e olhe as capturas quando mexer em desenho.
+Cada teste imprime OK/FALHOU por verificação e salva capturas em `testes/capturas/`. Rode todos antes de considerar uma versão pronta, e olhe as capturas quando mexer em desenho.
 
 ## Publicar uma versão nova
 
@@ -68,7 +71,8 @@ O link compartilhado só muda quando o `index.html` é publicado no artifact aci
 
 ## Pendências conhecidas
 
-- Especial de cada personagem (ideia: domínio perfeito também carrega a barra; ativar tocando na barra).
+- Elenco de 8 personagens com atributos e especial próprio (v0.15).
+- Ajustar os números dos especiais jogando (grupo "Especiais" do painel).
 - Campos novos para os degraus de cima (hoje: várzea nos dois primeiros, estádio noturno nos três últimos).
 - Talvez: atributos do jogador evoluindo na carreira; CPU ainda não usa domínio.
 - Oferecido e não pedido: "código de salvamento" para levar a carreira de um aparelho para outro.

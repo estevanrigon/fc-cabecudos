@@ -3,6 +3,7 @@
 Feito em 05/11/2026, a partir da v0.12, lendo o código e os docs (sem rodada de jogo nesta análise).
 
 Feito na v0.13 (05/11/2026): fases 0 e 1, menos a rodada com os amigos.
+Feito na v0.14 (05/11/2026): fase 2 menos o elenco de personagens com atributos (fica para a v0.15; o modelo de dados já está pronto).
 
 Legenda: **P** = um pedido curto · **M** = uma sessão de trabalho · **G** = várias sessões · ❓ = precisa da tua decisão antes.
 
@@ -43,13 +44,14 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 
 É a pendência mais antiga e a que mais muda a sensação de cada partida.
 
-- [ ] ❓ Decidir o formato: (a) elenco de personagens fixos, cada um com atributos e especial; (b) o teu jogador da carreira escolhe um especial e vai desbloqueando outros; ou (c) os dois (carreira com o teu cabeçudo, amistoso com o elenco).
-- [ ] Barra do especial: carrega com toques na bola, domínios perfeitos e gols sofridos; ativa tocando na barra ou numa tecla. **M**
-- [ ] Primeiros quatro especiais, bem diferentes entre si e com cara de futebol brasileiro. Ideias: **folha seca** (sobe e despenca na frente do gol), **bicicleta** (salto automático e chute por cima da cabeça), **caneta** (a bola atravessa o adversário), **muralha** (cabeça gigante por 3 s), **pombo sem asa** (rasteiro fortíssimo). **M** cada
+- [x] Decidir o formato: (c) os dois. Elenco fixo no amistoso e nos adversários; o teu cabeçudo da carreira libera e escolhe especiais (ver "Decisões que são tuas").
+- [x] Barra do especial: carrega com toques na bola, domínios perfeitos e gols sofridos; ativa pela tecla Espaço ou pelo botão ★ do toque (v0.14). **M**
+- [x] Primeiros quatro especiais (v0.14): **folha seca**, **bicicleta**, **caneta** (a bola passa por entre as pernas e o adversário fica tonto) e **muralha**. Fica de reserva: **pombo sem asa** (rasteiro fortíssimo). **M** cada
+- [x] Desbloqueio na carreira (v0.14): primeiro especial na criação, os outros por título ou acesso nos três primeiros degraus; aba "Especial" no vestiário.
 - [ ] Atributos por personagem (velocidade, pulo, força do chute, tamanho da cabeça), com diferenças pequenas para não desequilibrar. **M**
 - [ ] Elenco de 8 personagens originais (nome, visual, especial); os adversários da carreira passam a usar o elenco. **G**
-- [ ] CPU usando o especial na hora certa. **P/M**
-- [ ] Números de cada especial em `DEF` e `SPEC`, para ajustares no painel. **P**
+- [x] CPU usando o especial na hora certa (v0.14). **P/M**
+- [x] Números de cada especial em `DEF` e `SPEC`, para ajustares no painel (v0.14). **P**
 
 ## Fase 3: CPU com cabeça
 
@@ -123,7 +125,8 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 
 ## Decisões que são tuas (❓)
 
-1. Formato dos personagens e especiais (elenco fixo, especial do teu jogador, ou os dois).
+1. ~~Formato dos personagens e especiais~~ **Decidido em 05/11/2026: os dois.** Elenco fixo de personagens originais, cada um com atributos e especial próprio, usado no amistoso e pelos adversários da carreira (v0.15). O jogador da carreira é o cabeçudo do vestiário: escolhe o primeiro especial ao criar a carreira e libera os outros com o título ou o acesso da Copa da Vila, da Copa Regional e da Segunda Divisão; troca qual usar no vestiário (v0.14).
+   - Especiais da v0.14 (aprovados): folha seca, bicicleta, caneta e muralha. Tecla Espaço (jogador 2: Ç ou Num 4) e botão ★ no toque. Apertar com a barra cheia arma o especial por até 1,5 s; ele sai quando a bola chega no ponto certo, e a barra não se perde se não sair.
 2. Itens caindo no campo: sim ou não.
 3. Terreno e clima mexendo na física.
 4. Atributos do jogador evoluindo na carreira.

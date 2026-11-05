@@ -50,3 +50,16 @@ Primeira versão feita com o Claude Code, na pasta local (com git a partir daqui
 - A estreia na carreira é sempre contra o adversário mais fraco da Copa da Vila.
 - "Mandar opinião" no menu e no resultado da carreira: texto pronto (comentário, versão, aparelho e última partida) para copiar ou mandar pelo WhatsApp.
 - Testes: novo `testes/treino.py`.
+
+## v0.14: personagens e especiais (primeira parte)
+Formato decidido pelo Estêvan: elenco fixo de personagens (v0.15) e, na carreira, o cabeçudo do vestiário liberando especiais.
+- Barra do especial na plaquinha de cada lado do placar. Enche com chute ou cabeçada (+6%), domínio (+5%), domínio perfeito (+20%) e gol sofrido (+30%); do terceiro toque seguido do mesmo jogador em diante vale menos, para a embaixadinha não encher a barra sozinha.
+- Com a barra cheia, Espaço (jogador 2: Ç ou Num 4) ou o botão ★ do toque arma o especial por até 1,5 s; ele sai sozinho quando a bola chega no ponto. Se não sair, a barra continua cheia.
+- Quatro especiais: **folha seca** (sobe alto e despenca na boca do gol), **bicicleta** (pulo com cambalhota e bomba no gol, com a bola no alto), **caneta** (a bola passa por entre as pernas do adversário, ele fica tonto e tu atravessas junto) e **muralha** (cabeça 1,8× maior por 3 s).
+- Gol de especial ganha nome: "DE FOLHA SECA", "DE BICICLETA" (sempre golaço), "DE CANETA" e "DEPOIS DA CANETA".
+- A CPU usa o especial na hora certa: folha seca longe do gol com o goleiro adiantado, bicicleta perto do gol, caneta com o adversário na frente, muralha contra especial ou bola perigosa. CPU fraca demora mais para perceber.
+- Amistoso: linha "Especial ‹ ›" no menu para escolher qualquer um; o adversário sorteia o dele. Revanche mantém os especiais.
+- Carreira: o primeiro especial é escolhido na criação; título ou acesso da Copa da Vila, da Copa Regional e da Segunda Divisão libera o próximo. Aba "Especial" no vestiário para trocar. A tabela mostra o teu especial e o do adversário. Carreira antiga ganha um especial por degrau já vencido.
+- Treino com um 9º passo (especial); dicas novas; "Especiais" no resumo da partida; grupo "Especiais" no painel.
+- Por baixo: cada jogador tem atributos (velocidade, pulo, chute, tamanho da cabeça), todos 1 por enquanto, prontos para o elenco da v0.15. O especial genérico antigo (`SPECIALS`, `tryPower`) saiu.
+- Testes: novo `testes/especiais.py`.

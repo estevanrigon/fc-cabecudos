@@ -1,4 +1,4 @@
-"""Primeiros minutos (v0.13): oferta e passos do treino guiado, nome do lance no gol,
+"""Primeiros minutos (v0.13, com o passo do especial da v0.14): oferta e passos do treino guiado, nome do lance no gol,
 resumo da partida, pausa com controles, opinião, estreia fácil na carreira e o painel
 do treino no celular. Salva capturas em testes/capturas/.
 
@@ -145,14 +145,18 @@ with sync_playwright() as pw:
     boost = pg.evaluate("__arena.P[0].boostT")
     prender_bola_no_pe(pg)
     pg.keyboard.press("KeyG"); pg.wait_for_timeout(200)
-    C.ok("domínio perfeito + voleio embalado fecha o treino", boost > 0 and esperar(pg, "__arena.UI.screen==='trainDone'", 4000),
-         {"boostT": boost, "tela": tela(pg)})
+    C.ok("domínio perfeito + voleio embalado passa para o especial", boost > 0 and ir_para(pg, "especial"), {"boostT": boost, "passo": passo(pg)})
+    pg.wait_for_timeout(400)
+    C.ok("passo do especial começa com a barra cheia e a bola no pé", pg.evaluate("__arena.P[0].power===1&&__arena.P[0].special==='folha'"))
+    pg.screenshot(path=str(cap / "treino_especial.png"))
+    pg.keyboard.press("Space")
+    C.ok("folha seca no gol fecha o treino", esperar(pg, "__arena.UI.screen==='trainDone'", 7000), tela(pg))
     C.ok("treino completo fica registrado no salvamento", pg.evaluate("__arena.SAVE.profile.tut") == 2)
     pg.screenshot(path=str(cap / "treino_fim.png"))
 
     # pular todos os passos com Enter
     pg.click("[data-act=trainAgain]"); pg.wait_for_timeout(300)
-    for _ in range(8):
+    for _ in range(pg.evaluate("__arena.TRAIN.length")):
         pg.keyboard.press("Enter"); pg.wait_for_timeout(120)
     C.ok("Enter pula os passos do treino até o fim", esperar(pg, "__arena.UI.screen==='trainDone'", 2000), tela(pg))
 
@@ -192,9 +196,10 @@ with sync_playwright() as pw:
     C.ok("menu 'Mandar opinião' abre a tela de opinião", tela(pg) == "feedback", tela(pg))
     pg.fill("#fbtxt", "Achei muito bom, mas o voleio no ar é difícil.")
     txt = pg.evaluate("__arena.fbText()")
+    versao = pg.evaluate("(document.querySelector('.tagline').textContent.match(/v\\d+\\.\\d+/)||[''])[0]")
     C.dados["texto_opiniao"] = txt
-    C.ok("texto da opinião leva comentário, versão, aparelho e última partida",
-         "voleio no ar" in txt and "v0.13" in txt and "Aparelho: computador" in txt and "Última partida:" in txt, txt)
+    C.ok("texto da opinião leva comentário, versão (a mesma da tagline), aparelho e última partida",
+         versao and "voleio no ar" in txt and versao in txt and "Aparelho: computador" in txt and "Última partida:" in txt, (versao, txt))
     pg.screenshot(path=str(cap / "opiniao.png"))
     pg.click("[data-act=back]"); pg.wait_for_timeout(200)
     C.ok("voltar da opinião leva ao menu", pg.evaluate("__arena.G.mode") == "menu" and tela(pg) is None)

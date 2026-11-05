@@ -1,14 +1,23 @@
 # FC Cabeçudos: estado do protótipo
 
-Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.13 (publicada em 05/11/2026). Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
+Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.13 (publicada em 05/11/2026). A v0.14 está pronta na pasta local, ainda não publicada. Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
 
 Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head Soccer no claude.ai. Ao mudar algo importante aqui, vale avisar o Estêvan para atualizar lá também (ou atualizar pelo Cowork).
 
 ## Pasta local
 - Fica em Documentos\FC Cabecudos, no computador do Estêvan (desk-est, Windows 11). Criada em 05/11/2026 para trabalhar com o Claude Code.
-- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py`, `python testes/treino.py` (Playwright + Chromium; Python 3.12 instalado para o usuário em 05/11/2026).
+- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py`, `python testes/treino.py`, `python testes/especiais.py` (Playwright + Chromium; Python 3.12 instalado para o usuário em 05/11/2026).
 - Git iniciado em 05/11/2026 (branch main, primeiro commit = v0.12).
 - Plano de ação com as próximas versões: `docs/plano.md`.
+
+## Personagens e especiais (v0.14)
+- Formato decidido pelo Estêvan (05/11/2026): os dois. Elenco fixo de personagens originais, cada um com atributos e especial próprio, usado no amistoso e pelos adversários da carreira (fica para a v0.15). O jogador da carreira é o cabeçudo do vestiário: escolhe o primeiro especial ao criar a carreira e libera os outros com título ou acesso da Copa da Vila, da Copa Regional e da Segunda Divisão (na ordem folha seca, bicicleta, caneta, muralha, pulando o que já tem); troca qual usar na aba "Especial" do vestiário.
+- Especiais aprovados: folha seca (chute de longe que sobe a folhaH e despenca a folhaDist da boca do gol, entrando a ~45% da altura do gol), bicicleta (pulo calculado para a cabeça encontrar a bola, cambalhota, chute de biciPow mirando a ~38% da altura do gol), caneta (bola rola por entre as pernas, freia canetaDist atrás do adversário; ele fica canetaTonto segundos tonto; quem dribla atravessa junto) e muralha (cabeça muraMul× por muraTime segundos).
+- Barra: chute/cabeçada specKick, domínio specCtrl, domínio perfeito specPerf, gol sofrido specGoal; do 3º toque seguido do mesmo jogador em diante, × specStreak. Cabeçada só conta com a bola chegando a 150 px/s ou mais. A barra continua entre os gols e zera a cada partida.
+- Disparo: tecla Espaço (jogador 2: Ç ou Num 4) ou botão ★ (toque) com a barra cheia arma por specArm segundos; sai sozinho quando a bola chega no ponto (folha seca e caneta: bola no pé; caneta: adversário na frente, a até 460 px; bicicleta: bola acima da cabeça a até biciRange). Muralha sai na hora. Se não sair, a barra continua cheia.
+- CPU: cada adversário da carreira tem um especial sorteado pelo nome do clube (até o elenco chegar); no amistoso, sorteado a cada partida. Reação pela força (specDelay de 1 s na mais fraca a 0,08 s na mais forte); segura o chute comum enquanto espera a hora do especial.
+- Salvamento (v1): `profile.owned.spec` (lista de textos), `profile.look.spec` (o escolhido para a carreira), `profile.fspec` (o do amistoso), `career.season.newSpec` (o liberado naquela temporada). Salvamento antigo com carreira ganha 1 + um por degrau já vencido.
+- Base para a v0.15: `mkPlayer` recebe o especial e cada jogador tem `attr` (spd, jump, kick, head; todos 1) e `hrK` (escala da cabeça); `rHead(p)` dá o raio da cabeça de cada um.
 
 ## Primeiros minutos (v0.13)
 - Treino guiado: 8 passos sem adversário (o P2 fica como "fantasma", fora do campo e sem colisão). Oferecido uma vez (`SAVE.profile.tut`: 1 = oferecido, 2 = concluído) na primeira vez que a pessoa escolhe Carreira ou Amistoso; sempre no menu.
@@ -23,7 +32,7 @@ Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head
 
 ## Decisões de direção
 - Nome FC Cabeçudos; carreira começando na várzea, dificuldade subindo; vários campos para torneios (várzea ao entardecer, estádio noturno).
-- Personagens originais (não copiar Head Soccer). Especial genérico desligado: cada personagem terá o seu.
+- Personagens originais (não copiar Head Soccer). Especial genérico removido na v0.14: cada personagem tem o seu (ver "Personagens e especiais").
 - Sem atraso ou tremor de câmera no contato com a bola; sem câmera lenta no gol; apito mínimo.
 - Foco atual: um jogador (contra a CPU). Dois jogadores no mesmo tablet ficou para depois.
 - Clubes e a copa continental com nomes inventados (nada de marcas reais). A copa final se chama Liga Suprema.
@@ -46,8 +55,10 @@ Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head
 
 ## Física padrão
 pGrav 2740, jump 730, jumpCut 1, pSpeed 430, pAccel 20000, airCtl 1, headR 44, ballR 17, bGrav 800, bRest 0.82, bDrag 0.25, bRoll 0.35, magnus 0, chipH 330, chipD 900, chipMove 40, kickArc -10, drivePow 1900, driveAngle 3, driveAirMul 1.20, driveAirAngle -4, driveAirCurve 2800, driveArc 10, dribble 60, ctrlWindow 0.25, ctrlPerfect 0.12, ctrlCool 0.35, ctrlCoxa 50, ctrlPeito 78, boostMul 1.15, boostTime 0.8, sprintMul 1.45, stamina 2.2, stamRegen 4.0, sprintDribble 220, reach 72, headRest 0.70, headPop 0, headCarry 0.65, fieldW 1920, goalH 208, goalD 60, keeperDepth 100, matchTime 60.
+Especiais (v0.14, valores iniciais, ainda sem ajuste do Estêvan): specKick 0.06, specCtrl 0.05, specPerf 0.20, specGoal 0.30, specStreak 0.4, specArm 1.5, folhaH 440, folhaDist 330, biciPow 2500, biciRange 260, canetaDist 150, canetaTonto 0.9, muraMul 1.8, muraTime 3.
 
 ## Pendências
-- Especial de cada personagem (ideia: domínio perfeito também carrega a barra do especial; especial ativado tocando na barra).
+- Elenco de 8 personagens com atributos e especial próprio (v0.15); os adversários da carreira passam a usar o elenco.
+- Ajustar os números dos especiais jogando (painel, grupo "Especiais").
 - Campos novos para os degraus de cima (hoje: várzea nos dois primeiros, estádio noturno nos três últimos).
 - Possível: atributos do jogador evoluindo na carreira; CPU ainda não usa domínio.
