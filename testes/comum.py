@@ -19,8 +19,11 @@ def pasta_capturas():
     return CAPTURAS
 
 
-def abrir(navegador, largura=1180, altura=900, toque=False, limpar_save=False):
-    """Abre o jogo numa aba nova e devolve (página, contexto, lista de erros de JS)."""
+def abrir(navegador, largura=1180, altura=900, toque=False, limpar_save=False, treino_visto=True):
+    """Abre o jogo numa aba nova e devolve (página, contexto, lista de erros de JS).
+
+    Com treino_visto, marca o treino como já oferecido, para a primeira partida não parar
+    na pergunta "Primeira vez por aqui?" (o teste do treino abre com treino_visto=False)."""
     if toque:
         ctx = navegador.new_context(viewport={"width": largura, "height": altura},
                                     has_touch=True, is_mobile=True, device_scale_factor=2)
@@ -37,6 +40,8 @@ def abrir(navegador, largura=1180, altura=900, toque=False, limpar_save=False):
         pg.evaluate("localStorage.clear()")
         pg.reload()
         pg.wait_for_timeout(900)
+    if treino_visto:
+        pg.evaluate("__arena.SAVE.profile.tut=__arena.SAVE.profile.tut||1")
     return pg, ctx, erros
 
 

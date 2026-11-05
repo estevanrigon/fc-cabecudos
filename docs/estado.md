@@ -1,12 +1,20 @@
 # FC Cabeçudos: estado do protótipo
 
-Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.12. Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
+Jogo publicado (sempre atualizar este link): https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G, versão v0.13 (publicada em 05/11/2026). Arquivo único HTML + Canvas (`index.html` nesta pasta). Capacidades declaradas no artifact: db e user (salvamento da carreira em data/users/<id>/save, privado de cada jogador, com cópia em localStorage; vale o salvamento mais recente).
 
 Este arquivo espelha o documento "claude/fc-cabecudos-estado.md" do projeto Head Soccer no claude.ai. Ao mudar algo importante aqui, vale avisar o Estêvan para atualizar lá também (ou atualizar pelo Cowork).
 
 ## Pasta local
 - Fica em Documentos\FC Cabecudos, no computador do Estêvan (desk-est, Windows 11). Criada em 05/11/2026 para trabalhar com o Claude Code.
-- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py` (Playwright + Chromium).
+- Testes: `python testes/carreira.py`, `python testes/fisica.py`, `python testes/telas.py`, `python testes/treino.py` (Playwright + Chromium; Python 3.12 instalado para o usuário em 05/11/2026).
+- Git iniciado em 05/11/2026 (branch main, primeiro commit = v0.12).
+- Plano de ação com as próximas versões: `docs/plano.md`.
+
+## Primeiros minutos (v0.13)
+- Treino guiado: 8 passos sem adversário (o P2 fica como "fantasma", fora do campo e sem colisão). Oferecido uma vez (`SAVE.profile.tut`: 1 = oferecido, 2 = concluído) na primeira vez que a pessoa escolhe Carreira ou Amistoso; sempre no menu.
+- Nome do lance: o último toque fica em `ball.hit` (quem, tipo, de onde, se bateu no travessão). "De longe" a partir de 620 px do gol; "do meio-campo" de trás da linha do meio (80 px ou mais). Golaço: do meio-campo, ou de longe com voleio no ar, voleio embalado, cabeçada ou no ângulo.
+- Resumo da partida: chutes (contato de cavadinha ou voleio), posse (tempo com o último toque), domínios perfeitos, chute mais forte (px/s × 0,048 = km/h, só para dar a ideia).
+- Opinião: só texto copiado ou compartilhado pela própria pessoa (WhatsApp ou menu de compartilhar do celular); nada é enviado sozinho.
 
 ## Compartilhamento
 - Para amigos: link público pelo menu de compartilhamento do artifact (só visualização). Quem abre por link público fica no nível "view" e não grava na conta: a carreira dele fica só no navegador (localStorage), separada da do Estêvan.

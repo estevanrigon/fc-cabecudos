@@ -3,7 +3,7 @@
 Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própria), feito em HTML + Canvas num arquivo só. O dono é o Estêvan; responda em português do Brasil, com tuteio ("podes", "queres").
 
 - Jogo publicado: https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G (o link que os amigos recebem; viewers veem cada nova versão na hora)
-- Versão atual: v0.12
+- Versão atual: v0.13 (publicada)
 - Estado detalhado, decisões e números: @docs/estado.md
 - Histórico de versões: @docs/historico.md
 - Plano de ação (fases, ordem sugerida e decisões pendentes): docs/plano.md
@@ -26,7 +26,8 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 | física: bola | `resolveBall`, `ballWorld` (gravidade, arrasto, curva do voleio no ar, travessão) |
 | contatos jogador × bola | `kickCheck` (cavadinha `chipLaunch` e voleio, bônus embalado), `controlCheck` (domínio), `bodyCheck`, `conduct` |
 | CPU | `aiInput` (força em escala contínua, ver `aiParams`/`AI_ANCH`) |
-| fluxo da partida | `update` (passo fixo de 1/120 s), gol, fim de jogo, morte súbita, empate na carreira |
+| fluxo da partida | `update` (passo fixo de 1/120 s), gol e nome do lance (`goalCall`, `KIND_TXT`), fim de jogo, resumo (`matchStats`), morte súbita, empate na carreira |
+| treino | `TRAIN` (os 8 passos), `startTrain`, `trainSetup`/`trainTick`/`trainEvent`, painel `drawTrain` |
 | menu / render | menu do canvas, `render`, campos (`STAGES`, `paintVarzea`, `paintStadium`), jogador (`drawPlayer`, cabelos e acessórios), bola, HUD |
 | loop | `layout` (proporção, faixas de placar e de gramado, modo toque), `resize`, `frame`, interpolação, medidor de fps, resolução dinâmica |
 | visual do jogador e clubes / salvamento / carreira / interface | catálogos (`SHOP`, `SKINS`, `CLUBS`, `TIERS`), `SAVE` (localStorage + conta), temporadas, partidas da carreira, telas HTML (`SCREENS`, `ACT`) |
@@ -41,7 +42,7 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 - Personagens originais; não copiar o visual do Head Soccer.
 - Preferências de jogo já decididas: sem atraso nem tremor de câmera no contato com a bola, sem câmera lenta no gol, apito mínimo, especial genérico desligado (`SPECIALS=false`, cada personagem terá o seu).
 - Física: os valores padrão ficam em `DEF` e só mudam quando o Estêvan pedir (ele ajusta pelo painel e manda o bloco "física vX"). Parâmetro novo: acrescentar em `DEF` e em `SPEC`.
-- Ao fechar uma versão: atualizar o número em três lugares (tagline no topo, `'física vX'` no `dumpValues` e o rodapé "Nesta versão"), mais `docs/historico.md` e `docs/estado.md`.
+- Ao fechar uma versão: atualizar o número em três lugares (tagline no topo, a constante `VERSION` no começo do script, usada no bloco "física vX" e no texto de opinião, e o rodapé "Nesta versão"), mais `docs/historico.md` e `docs/estado.md`.
 - Salvamento (`SAVE`, formato v1): nunca usar arrays dentro de arrays (o banco da conta não aceita). Rodadas da tabela ficam como texto ("0-3,1-2").
 - O artifact publicado declara as capacidades `db` e `user` (salvamento na conta). Quem não é dono vê a versão pública (sem painel, hitboxes e notas). Aberto localmente (`file://` ou localhost), o painel aparece.
 - Gancho `window.__arena` é usado pelos testes; mantenha os campos que eles leem.
@@ -54,7 +55,10 @@ Pré-requisito (uma vez): `pip install -r testes/requirements.txt` e depois `pyt
 python testes/carreira.py   # carreira inteira (27 jogos), empate, eliminação, abandono, vestiário, salvamento
 python testes/fisica.py     # pique e fôlego, condução, domínio perfeito, voleio embalado
 python testes/telas.py      # tela cheia 16:9 / 16:10 / 21:9, toque no celular e tablet, versão pública
+python testes/treino.py     # treino guiado, nome do lance, resumo, pausa, opinião, estreia fácil
 ```
+
+No Windows deste computador o Python não está no PATH do terminal do Claude: usar `"$LOCALAPPDATA/Programs/Python/Python312/python.exe"` (no Bash) e `PYTHONIOENCODING=utf-8`. `comum.abrir()` marca o treino como já oferecido (`treino_visto=True`), senão a primeira partida para na pergunta do treino.
 
 Cada teste imprime OK/FALHOU por verificação e salva capturas em `testes/capturas/`. Rode os três antes de considerar uma versão pronta, e olhe as capturas quando mexer em desenho.
 

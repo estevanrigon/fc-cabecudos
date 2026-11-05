@@ -41,6 +41,7 @@ python -m playwright install chromium
 python testes/carreira.py
 python testes/fisica.py
 python testes/telas.py
+python testes/treino.py
 ```
 
 Cada um imprime OK ou FALHOU por verificação e salva capturas de tela em `testes/capturas`.

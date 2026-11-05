@@ -2,6 +2,8 @@
 
 Feito em 05/11/2026, a partir da v0.12, lendo o código e os docs (sem rodada de jogo nesta análise).
 
+Feito na v0.13 (05/11/2026): fases 0 e 1, menos a rodada com os amigos.
+
 Legenda: **P** = um pedido curto · **M** = uma sessão de trabalho · **G** = várias sessões · ❓ = precisa da tua decisão antes.
 
 ## Onde o jogo está
@@ -20,22 +22,22 @@ Legenda: **P** = um pedido curto · **M** = uma sessão de trabalho · **G** = v
 
 ## Fase 0: fundação (antes de tudo)
 
-- [ ] Iniciar o git e fazer o primeiro commit, para cada versão virar um ponto de volta. **P**
-- [ ] Instalar e rodar os três testes; guardar as capturas como referência. **P**
+- [x] Iniciar o git e fazer o primeiro commit, para cada versão virar um ponto de volta. **P**
+- [x] Instalar e rodar os testes; guardar as capturas como referência. **P**
 - [ ] Rodada com 3 a 5 amigos: mandar o link, pedir que joguem 10 minutos sem explicação e contem onde travaram, o que acharam chato e do que mais gostaram. Assistir alguém jogando vale ainda mais. **P** (do teu lado)
-- [ ] Botão "Mandar opinião" no fim da partida, que copia um texto pronto (versão, placar, aparelho) para colar no WhatsApp. **P**
+- [x] Botão "Mandar opinião" no fim da partida, que copia um texto pronto (versão, placar, aparelho) para colar no WhatsApp. **P**
 
 ## Fase 1: os primeiros 5 minutos
 
 Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro minuto.
 
-- [ ] Treino guiado curto: mover, pular, cabeçada, cavadinha, voleio, domínio, domínio perfeito + voleio embalado. Cada passo com um alvo no campo e opção de pular. **M**
-- [ ] Oferecer o treino na primeira vez que alguém abre o jogo, e deixar no menu depois. **P**
-- [ ] Mostrar os controles na tela de pausa (hoje só aparecem embaixo do campo, no computador). **P**
-- [ ] Dicas curtas no "PREPARAR" e na pausa ("domínio perfeito deixa o voleio 15% mais forte"). **P**
-- [ ] Estreia da carreira sempre contra o adversário mais fraco da Copa da Vila. **P**
-- [ ] Dar nome ao lance embaixo do "GOL!": de cabeça, de voleio, de cavadinha, de longe, no ângulo, no rebote da trave. **P**
-- [ ] Resumo no fim da partida: chutes, gols por tipo, domínios perfeitos, chute mais forte. **P/M**
+- [x] Treino guiado curto: mover, pular, cabeçada, cavadinha, voleio, domínio, domínio perfeito + voleio embalado. Cada passo com um alvo no campo e opção de pular. **M**
+- [x] Oferecer o treino na primeira vez que alguém abre o jogo, e deixar no menu depois. **P**
+- [x] Mostrar os controles na tela de pausa (hoje só aparecem embaixo do campo, no computador). **P**
+- [x] Dicas curtas na pausa e na tabela da carreira ("domínio perfeito deixa o voleio 15% mais forte"); o "PREPARAR" dura 1 s, curto demais para ler. **P**
+- [x] Estreia da carreira sempre contra o adversário mais fraco da Copa da Vila. **P**
+- [x] Dar nome ao lance embaixo do "GOL!": de cabeça, de voleio, de cavadinha, de longe, no ângulo, no travessão e entrou, do meio-campo, golaço. **P**
+- [x] Resumo no fim da partida: chutes, gols por tipo, domínios perfeitos, chute mais forte. **P/M**
 
 ## Fase 2: personagens e especiais (a identidade do jogo)
 

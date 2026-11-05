@@ -40,3 +40,13 @@ Resumo do que cada versão trouxe, na ordem em que foi pedida. As versões até 
 - Tela cheia sem achatar em qualquer monitor, com o placar numa faixa própria acima do campo.
 - Desenho interpolado entre os passos da física (liso em 120 Hz ou mais); tecla 3 mostra os fps; resolução cai sozinha em aparelho fraco.
 - Aberto direto do computador (arquivo local), o painel de ajuste aparece.
+
+## v0.13: primeiros minutos
+Primeira versão feita com o Claude Code, na pasta local (com git a partir daqui).
+- Treino guiado em 8 passos (andar, pique, cabeçada, cavadinha, voleio, voleio no ar, domínio, voleio embalado), sem adversário em campo. Oferecido uma vez, na primeira partida de quem abre o jogo, e sempre disponível no menu. Dá para pular passos (Enter ou "pular").
+- Nome do lance embaixo do "GOL!": de cabeça, de voleio, voleio no ar, voleio embalado, de cavadinha, de chapa/coxa/peito/sola (depois do domínio), de bico, com bola e tudo; e de longe, no ângulo, no travessão e entrou, do meio-campo. Gol do meio-campo ou voleio no ar de longe vira "GOLAÇO!". Gol contra tem letreiro próprio.
+- Resumo da partida no fim do jogo (e na tela de resultado da carreira): chutes, posse de bola, domínios perfeitos e chute mais forte em km/h.
+- Pausa mostra os controles (teclado ou botões de toque) e uma dica; a tabela da carreira também mostra uma dica.
+- A estreia na carreira é sempre contra o adversário mais fraco da Copa da Vila.
+- "Mandar opinião" no menu e no resultado da carreira: texto pronto (comentário, versão, aparelho e última partida) para copiar ou mandar pelo WhatsApp.
+- Testes: novo `testes/treino.py`.
