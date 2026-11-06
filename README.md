@@ -20,7 +20,7 @@ Dois cliques no `index.html`. Aberto assim, aparece o painel de ajuste da físic
 
 ## Publicar uma versão nova
 
-O GitHub Pages serve o `index.html` da branch `main`. Cada `git push` na `main` vira a versão do link em cerca de um minuto. Trabalho em andamento fica em commit local (sem push) ou numa branch.
+O GitHub Pages serve o `index.html` da branch `main`. Cada `git push` na `main` vira a versão do link em cerca de um minuto. Uma versão em andamento fica numa branch própria (`v0.15`, por exemplo), que não é publicada.
 
 ## Testes automáticos
 
@@ -55,4 +55,14 @@ python testes/controle.py
 
 ## Trabalhar com o Claude Code
 
-Na pasta do projeto, `claude` abre o Claude Code; o `CLAUDE.md` explica para ele como o projeto funciona. Também dá para usar o Claude Code na web (claude.ai/code) direto neste repositório.
+Na pasta do projeto, `claude` abre o Claude Code; o `CLAUDE.md` explica para ele como o projeto funciona. Os pedidos de cada versão, prontos para colar, estão em `docs/plano.md` ("Pedidos prontos"). Um pedido por conversa nova sai mais barato.
+
+Em outro computador: instala o [Git](https://git-scm.com/downloads) e o Claude Code, baixa o projeto e abre o Claude Code na pasta:
+
+```
+git clone https://github.com/estevanrigon/fc-cabecudos.git
+cd fc-cabecudos
+claude
+```
+
+Também dá para usar o Claude Code na web (claude.ai/code) direto neste repositório, sem instalar nada.

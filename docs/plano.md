@@ -85,6 +85,68 @@ Sem novidade nesta versão, só acabamento.
 - [ ] Corrigir tudo o que aparecer, conferir o desempenho em celular fraco e os testes de todos os sistemas.
 - [ ] Tirar o "protótipo jogável" da tagline e escrever a nota da 1.0.
 
+## Pedidos prontos (um por conversa nova)
+
+Cada pedido abaixo é uma sessão: abre uma conversa nova para cada um (sai bem mais barato do que continuar uma conversa longa) e cola o texto. O que está entre colchetes depende de uma decisão tua; apaga a parte que não valer. "Fecha e publica" quer dizer testes, docs, commit e push na `main`, ou seja, o link dos amigos atualiza.
+
+**A qualquer momento**
+```
+Atualiza os padrões da física com este bloco do painel: [cola o bloco "física vX"]
+```
+```
+Estas são as opiniões dos amigos: [cola]. Resume o que apareceu e propõe mudanças no docs/plano.md, sem programar ainda.
+```
+
+**v0.15 · Personagens**
+```
+Começa a v0.15 (seção "v0.15 · Personagens" do docs/plano.md). Antes de programar, me propõe o elenco de 8 personagens originais (nome, visual, atributos e especial de cada um) [e os 4 especiais novos]. Quando eu aprovar, anota no plano e envia (só docs).
+```
+```
+Continua a v0.15: programa o elenco aprovado (atributos, escolha do personagem no amistoso, adversários da carreira usando o elenco), com testes.
+```
+```
+Termina a v0.15: [os especiais novos aprovados e] o código de salvamento. Depois fecha e publica a v0.15.
+```
+
+**v0.16 · CPU com cabeça**
+```
+Começa a v0.16 (docs/plano.md): estilos de CPU, domínio e voleio embalado da CPU, reação ao placar e defesa melhor, com testes.
+```
+```
+Termina a v0.16: o teste que caça as jogadas que sempre funcionam contra a CPU e a simulação da carreira CPU contra CPU. Me mostra o que apareceu, ajusta e fecha e publica a v0.16.
+```
+
+**v0.17 · Som e espetáculo**
+```
+Faz a v0.17 inteira (seção "v0.17 · Som e espetáculo" do docs/plano.md). Antes de publicar, me avisa para eu ouvir no computador; depois fecha e publica.
+```
+
+**v0.18 · Campos e modos rápidos**
+```
+Começa a v0.18 (docs/plano.md): os dois campos novos para os degraus de cima. Me mostra as capturas antes de seguir.
+```
+```
+Termina a v0.18: os modos rápidos no menu. Fecha e publica a v0.18.
+```
+
+**v0.19 · Carreira que prende**
+```
+Começa a v0.19 (docs/plano.md): o Mundial e as temporadas de lenda depois da Liga Suprema, e o rival de carreira.
+```
+```
+Termina a v0.19: manchetes, armário de troféus e itens novos no vestiário [e atributos do jogador evoluindo na carreira]. Fecha e publica a v0.19.
+```
+
+**v0.20 · Opções e polimento**
+```
+Faz a v0.20 (seção "v0.20 · Opções e polimento" do docs/plano.md) [com o instalar no celular como aplicativo]. Fecha e publica.
+```
+
+**v1.0 · Rodada final** (depois que os amigos jogarem a carreira inteira)
+```
+Fiz a rodada final com os amigos; as opiniões estão abaixo. Corrige o que apareceu, confere o desempenho e os testes, e fecha e publica a 1.0: [cola as opiniões]
+```
+
 ## Regras do caminho
 - Cada sistema novo vem com teste automático.
 - Testar no celular de verdade a cada versão grande. *(teu lado)*

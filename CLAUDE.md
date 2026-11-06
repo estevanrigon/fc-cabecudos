@@ -75,15 +75,22 @@ python testes/controle.py   # controle de Xbox simulado: menu, partida, pausa, v
 
 Em `especiais.py`, a verificação "CPU contra CPU (fundo do menu)" depende de sorteio: se só ela falhar, rode de novo antes de investigar.
 
-## Fechar e publicar uma versão
+## Começo e fim de cada sessão
+
+O Estêvan pode trabalhar de mais de uma máquina (ou pelo Claude Code na web), então o GitHub é o ponto de encontro. Os pedidos de cada versão estão em `docs/plano.md`, seção "Pedidos prontos".
+
+- No começo: `git pull`. Se houver uma branch de versão em andamento (`git branch -a`, nome `vX.Y`), continue nela (`git switch vX.Y`).
+- Versão em andamento fica na branch `vX.Y`, com commit e push dela no fim de cada sessão. O GitHub Pages só publica a `main`, então nada disso chega aos amigos.
+- Mudança só nos docs, sem mexer no jogo, pode ir direto para a `main`.
+- Máquina nova: o e-mail dos commits fica na configuração local do git, que não vem com o clone. Antes do primeiro commit, confira `git config user.email`: deve ser `284153649+estevanrigon@users.noreply.github.com` (nome: Estêvan). Para os testes, instale as dependências (ver "Testes").
+
+## Fechar e publicar uma versão ("fecha e publica")
 
 1. Rodar os seis testes; todos OK.
 2. Atualizar o número da versão em três lugares do `index.html`: a tagline no topo, a constante `VERSION` no começo do script (usada no bloco "física vX" e no texto de opinião) e o rodapé "Nesta versão".
 3. Atualizar os docs: `historico.md` (o que entrou), `estado.md` (o que mudou no funcionamento), `plano.md` (marcar o que foi feito) e a "Versão atual" aqui em cima.
-4. Commit na `main` com a mensagem "vX.Y: resumo".
-5. `git push`. O GitHub Pages publica sozinho.
-
-Só vai para a `main` com push o que pode ir para os amigos. Trabalho em andamento fica em commit local (sem push) ou numa branch.
+4. Commit na branch da versão com a mensagem "vX.Y: resumo" e juntar na `main` (`git switch main`, `git merge vX.Y`).
+5. `git push` da `main` (o GitHub Pages publica sozinho em cerca de um minuto) e apagar a branch da versão, aqui e no GitHub.
 
 ## Link antigo do claude.ai
 
