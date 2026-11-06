@@ -1,43 +1,39 @@
 # FC Cabeçudos
 
-Futebol de cabeça 1x1, da várzea até a final da Liga Suprema. O jogo inteiro está no `index.html`.
+Futebol de cabeça 1x1, da várzea até a final da Liga Suprema. O jogo inteiro está num arquivo só (`index.html`), sem instalação e sem dependências.
 
-## Jogar
+**Jogar:** https://estevanrigon.github.io/fc-cabecudos/
 
-Dois cliques no `index.html` abrem o jogo no navegador. Aberto daqui, o painel de ajuste aparece embaixo do campo; o botão **Ver como jogador** mostra a versão que os amigos veem pelo link.
+![Partida na várzea](docs/img/partida.png)
 
-O progresso da carreira aberto por este arquivo fica salvo só neste navegador. A carreira da tua conta é a do link publicado.
+## Controles
 
-## Trabalhar com o Claude Code
+- **Teclado:** A/D anda, Shift (segurar) pique, W pula, F cavadinha, G voleio, H domínio, Espaço especial, Esc pausa. O jogador 2 usa as setas e o teclado numérico.
+- **Celular e tablet:** trilha de deslizar na esquerda (na ponta, pique) e botões na direita.
+- **Controle de Xbox:** analógico anda, A pula, X cavadinha, B voleio, Y domínio, RT pique, RB especial, Menu pausa. Com dois controles, cada um é um jogador.
 
-**1. Instalar (uma vez só).** Abre o PowerShell e cola:
+O jogo oferece um treino guiado na primeira partida, e ele fica sempre no menu.
 
-```powershell
-irm https://claude.ai/install.ps1 | iex
-```
+## Rodar no computador
 
-Depois fecha e abre o PowerShell de novo e confere com `claude --version`. O [Git para Windows](https://git-scm.com/downloads/win) é recomendado, para o Claude Code usar o terminal Bash e guardar versões.
+Dois cliques no `index.html`. Aberto assim, aparece o painel de ajuste da física embaixo do campo; o botão **Ver como jogador** mostra a versão que os amigos veem. A carreira fica salva no navegador.
 
-**2. Abrir nesta pasta.** No PowerShell:
+## Publicar uma versão nova
 
-```powershell
-cd "$HOME\Documents\FC Cabecudos"
-claude
-```
-
-Na primeira vez ele pede login com a tua conta do Claude.
-
-**3. Primeiros pedidos que valem a pena:**
-
-- "Inicia o git aqui e faz o primeiro commit" (assim cada versão fica guardada e dá para voltar atrás).
-- "Prepara os testes" (ele instala o Playwright: precisa do Python, que dá para instalar com `winget install Python.Python.3.12`).
-- Daí em diante, pede as mudanças no jogo como fazias no Cowork. O arquivo `CLAUDE.md` já explica para ele como o projeto funciona, as regras e as decisões tomadas.
+O GitHub Pages serve o `index.html` da branch `main`. Cada `git push` na `main` vira a versão do link em cerca de um minuto. Trabalho em andamento fica em commit local (sem push) ou numa branch.
 
 ## Testes automáticos
 
-```powershell
+Python 3 + Playwright. Na primeira vez:
+
+```
 pip install -r testes/requirements.txt
 python -m playwright install chromium
+```
+
+Depois, cada teste roda sozinho e imprime OK ou FALHOU por verificação (as capturas de tela vão para `testes/capturas/`, fora do git):
+
+```
 python testes/carreira.py
 python testes/fisica.py
 python testes/telas.py
@@ -46,18 +42,17 @@ python testes/especiais.py
 python testes/controle.py
 ```
 
-Cada um imprime OK ou FALHOU por verificação e salva capturas de tela em `testes/capturas`.
-
-## Atualizar o link dos amigos
-
-Mudar o `index.html` aqui não muda o jogo publicado. Para atualizar o link, publica o `index.html` no artifact do jogo: pelo Claude Code, se ele tiver a ferramenta de artifacts, ou numa conversa do Cowork no projeto "Head Soccer", pedindo para publicar o `index.html` desta pasta.
-
 ## O que tem aqui
 
 | Arquivo | Para quê |
 | - | - |
-| `index.html` | o jogo (mesmo conteúdo do link publicado) |
+| `index.html` | o jogo |
 | `CLAUDE.md` | instruções e mapa do código para o Claude Code |
-| `docs/estado.md` | decisões, números da física e da carreira, pendências |
+| `docs/estado.md` | como cada sistema funciona e as decisões já tomadas |
+| `docs/plano.md` | próximos passos, pendências e decisões em aberto |
 | `docs/historico.md` | o que cada versão trouxe |
 | `testes/` | testes automáticos com Playwright |
+
+## Trabalhar com o Claude Code
+
+Na pasta do projeto, `claude` abre o Claude Code; o `CLAUDE.md` explica para ele como o projeto funciona. Também dá para usar o Claude Code na web (claude.ai/code) direto neste repositório.

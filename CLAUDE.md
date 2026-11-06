@@ -2,18 +2,28 @@
 
 Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própria), feito em HTML + Canvas num arquivo só. O dono é o Estêvan; responda em português do Brasil, com tuteio ("podes", "queres").
 
-- Jogo publicado: https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G (o link que os amigos recebem; viewers veem cada nova versão na hora)
-- Versão atual: v0.14 (publicada no link em 05/11/2026)
-- Estado detalhado, decisões e números: @docs/estado.md
-- Histórico de versões: @docs/historico.md
-- Plano de ação (fases, ordem sugerida e decisões pendentes): docs/plano.md
+- Jogo no ar: https://estevanrigon.github.io/fc-cabecudos/ (GitHub Pages, servido da branch `main` de https://github.com/estevanrigon/fc-cabecudos). Push na `main` = versão nova no link dos amigos em cerca de um minuto.
+- Versão atual: v0.14.
+- Onde está cada coisa (leia só quando a tarefa pedir):
+  - `docs/estado.md`: como cada sistema funciona hoje e as decisões já tomadas.
+  - `docs/plano.md`: próximos passos, pendências e decisões em aberto.
+  - `docs/historico.md`: o que cada versão trouxe.
+
+## Para gastar menos
+
+- Não leia o `index.html` inteiro (passa de 5 mil linhas). Ache a seção pelo mapa abaixo ou com Grep e leia só o trecho.
+- Os números da física ficam em `DEF`, no `index.html`. Não há cópia deles nos docs.
+- Cada informação mora num lugar só: funcionamento em `docs/estado.md`, pendências em `docs/plano.md`, versões em `docs/historico.md`. Não repita em outro arquivo.
+- Publicar é `git push`. Não use a ferramenta de artifacts para publicar o jogo (ver "Link antigo do claude.ai").
+- Notas desta máquina (caminho do Python etc.) ficam em `CLAUDE.local.md`, fora do git.
 
 ## Como o projeto é organizado
 
-- `index.html` é o jogo inteiro: HTML, CSS e JavaScript juntos, sem build e sem dependências (só as fontes do Google Fonts). Abrir com dois cliques já roda.
-- O arquivo começa com o "esqueleto" que o claude.ai acrescenta ao publicar (`<!doctype html>...<body>`). Mantenha esse esqueleto como está: na hora de republicar, a ferramenta reconhece e substitui.
+- `index.html` é o jogo inteiro: HTML, CSS e JavaScript juntos, sem build e sem dependências (só as fontes do Google Fonts). Abrir com dois cliques já roda. O GitHub Pages serve esse mesmo arquivo.
+- O arquivo começa com o "esqueleto" que o claude.ai acrescenta ao publicar (`<!doctype html>...<body>`). Mantenha esse esqueleto como está: ele não atrapalha no GitHub Pages e deixa o arquivo pronto para o link antigo.
+- `.nojekyll` faz o GitHub Pages servir os arquivos como estão, sem processar nada.
 - `testes/` tem testes automáticos em Python + Playwright (ver abaixo).
-- `docs/` guarda o estado do projeto e o histórico.
+- `docs/` guarda o estado, o plano e o histórico; `docs/img/` tem a imagem do README.
 
 ### Mapa do `index.html` (procure pelos marcadores `/* ==== ... ==== */`)
 
@@ -28,7 +38,7 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 | especiais | `SPECIAL` (catálogo), barra (`charge`), `armSpecial`, `specialTick`, `fireFolha`/`fireBici`/`biciStrike`/`fireCaneta`/`fireMuralha`, `ballSpecial` (queda da folha seca, rolada da caneta) |
 | CPU | `aiInput` (força em escala contínua, ver `aiParams`/`AI_ANCH`), `aiSpecialWant`/`dangerFor` (quando usar o especial) |
 | fluxo da partida | `update` (passo fixo de 1/120 s), gol e nome do lance (`goalCall`, `KIND_TXT`), fim de jogo, resumo (`matchStats`), morte súbita, empate na carreira |
-| treino | `TRAIN` (os 8 passos), `startTrain`, `trainSetup`/`trainTick`/`trainEvent`, painel `drawTrain` |
+| treino | `TRAIN` (os passos), `startTrain`, `trainSetup`/`trainTick`/`trainEvent`, painel `drawTrain` |
 | menu / render | menu do canvas, `render`, campos (`STAGES`, `paintVarzea`, `paintStadium`), jogador (`drawPlayer`, cabelos e acessórios), bola, HUD |
 | loop | `layout` (proporção, faixas de placar e de gramado, modo toque), `resize`, `frame`, interpolação, medidor de fps, resolução dinâmica |
 | visual do jogador e clubes / salvamento / carreira / interface | catálogos (`SHOP`, `SKINS`, `CLUBS`, `TIERS`), `SAVE` (localStorage + conta), temporadas, partidas da carreira, telas HTML (`SCREENS`, `ACT`) |
@@ -41,12 +51,11 @@ Jogo de futebol de cabeça 1x1 (inspirado no Head Soccer, com identidade própri
 - Textos do jogo em português do Brasil.
 - Clubes, campeonatos e marcas sempre inventados (a copa continental é a "Liga Suprema"). Nada de nomes, escudos ou marcas reais.
 - Personagens originais; não copiar o visual do Head Soccer.
-- Preferências de jogo já decididas: sem atraso nem tremor de câmera no contato com a bola, sem câmera lenta no gol, apito mínimo, nada de especial genérico: cada personagem tem o seu (catálogo `SPECIAL`; o genérico antigo saiu na v0.14).
+- Preferências de jogo já decididas: sem atraso nem tremor de câmera no contato com a bola, sem câmera lenta no gol, apito mínimo, nada de especial genérico: cada personagem tem o seu (catálogo `SPECIAL`).
 - Personagens: elenco fixo no amistoso e nos adversários da carreira (v0.15); na carreira, o cabeçudo do vestiário libera e escolhe especiais. Atributos de cada jogador ficam em `p.attr` (multiplicadores sobre `DEF`).
 - Física: os valores padrão ficam em `DEF` e só mudam quando o Estêvan pedir (ele ajusta pelo painel e manda o bloco "física vX"). Parâmetro novo: acrescentar em `DEF` e em `SPEC`.
-- Ao fechar uma versão: atualizar o número em três lugares (tagline no topo, a constante `VERSION` no começo do script, usada no bloco "física vX" e no texto de opinião, e o rodapé "Nesta versão"), mais `docs/historico.md` e `docs/estado.md`.
-- Salvamento (`SAVE`, formato v1): nunca usar arrays dentro de arrays (o banco da conta não aceita). Rodadas da tabela ficam como texto ("0-3,1-2").
-- O artifact publicado declara as capacidades `db` e `user` (salvamento na conta). Quem não é dono vê a versão pública (sem painel, hitboxes e notas). Aberto localmente (`file://` ou localhost), o painel aparece.
+- Salvamento (`SAVE`, formato v1): nunca usar arrays dentro de arrays (o banco da conta do claude.ai não aceita). Rodadas da tabela ficam como texto ("0-3,1-2").
+- Versão pública: fora do computador (GitHub Pages ou link do claude.ai) aparece só o jogo, sem painel, hitboxes e notas. Aberto localmente (`file://` ou localhost), o painel aparece.
 - Gancho `window.__arena` é usado pelos testes; mantenha os campos que eles leem.
 
 ## Testes
@@ -62,18 +71,20 @@ python testes/especiais.py  # barra, folha seca, bicicleta, caneta, muralha, CPU
 python testes/controle.py   # controle de Xbox simulado: menu, partida, pausa, vestiário, carreira, celular, 2 controles
 ```
 
-No Windows deste computador o Python não está no PATH do terminal do Claude: usar `"$LOCALAPPDATA/Programs/Python/Python312/python.exe"` (no Bash) e `PYTHONIOENCODING=utf-8`. `comum.abrir()` marca o treino como já oferecido (`treino_visto=True`), senão a primeira partida para na pergunta do treino.
+`comum.abrir()` marca o treino como já oferecido (`treino_visto=True`), senão a primeira partida para na pergunta do treino. Cada teste imprime OK/FALHOU por verificação e salva capturas em `testes/capturas/` (fora do git). Olhe as capturas quando mexer em desenho.
 
-Cada teste imprime OK/FALHOU por verificação e salva capturas em `testes/capturas/`. Rode todos antes de considerar uma versão pronta, e olhe as capturas quando mexer em desenho.
+Em `especiais.py`, a verificação "CPU contra CPU (fundo do menu)" depende de sorteio: se só ela falhar, rode de novo antes de investigar.
 
-## Publicar uma versão nova
+## Fechar e publicar uma versão
 
-O link compartilhado só muda quando o `index.html` é publicado no artifact acima. Se a ferramenta de artifacts estiver disponível nesta sessão, publique o `index.html` na URL do artifact (atualizar no lugar, sem mudar as capacidades). Se não estiver, avise o Estêvan: ele abre o projeto "Head Soccer" no Cowork e pede para publicar o `index.html` desta pasta.
+1. Rodar os seis testes; todos OK.
+2. Atualizar o número da versão em três lugares do `index.html`: a tagline no topo, a constante `VERSION` no começo do script (usada no bloco "física vX" e no texto de opinião) e o rodapé "Nesta versão".
+3. Atualizar os docs: `historico.md` (o que entrou), `estado.md` (o que mudou no funcionamento), `plano.md` (marcar o que foi feito) e a "Versão atual" aqui em cima.
+4. Commit na `main` com a mensagem "vX.Y: resumo".
+5. `git push`. O GitHub Pages publica sozinho.
 
-## Pendências conhecidas
+Só vai para a `main` com push o que pode ir para os amigos. Trabalho em andamento fica em commit local (sem push) ou numa branch.
 
-- Elenco de 8 personagens com atributos e especial próprio (v0.15).
-- Ajustar os números dos especiais jogando (grupo "Especiais" do painel).
-- Campos novos para os degraus de cima (hoje: várzea nos dois primeiros, estádio noturno nos três últimos).
-- Talvez: atributos do jogador evoluindo na carreira; CPU ainda não usa domínio.
-- Oferecido e não pedido: "código de salvamento" para levar a carreira de um aparelho para outro.
+## Link antigo do claude.ai
+
+https://claude.ai/artifact/HE4S84cr7yxv7db5mkoL5G está parado na v0.14. Ele declara as capacidades `db` e `user`, então ali a carreira do dono também fica salva na conta. Só republique se o Estêvan pedir: numa sessão nova, a ferramenta de artifacts obriga a ler o jogo inteiro e a versão no ar inteira (mais de 150 mil tokens). Nesse caso, publique o `index.html` na URL, sem mudar as capacidades.

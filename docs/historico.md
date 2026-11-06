@@ -1,6 +1,6 @@
 # Histórico de versões
 
-Resumo do que cada versão trouxe, na ordem em que foi pedida. As versões até a v0.12 foram feitas em conversas no Cowork (projeto "Head Soccer").
+Resumo do que cada versão trouxe, na ordem em que foi pedida. As versões até a v0.12 foram feitas em conversas no Cowork (projeto "Head Soccer"); as seguintes, com o Claude Code. Até a v0.14 o jogo foi publicado num artifact do claude.ai; dali em diante, no GitHub Pages.
 
 ## v0.1 a v0.4: física
 - Protótipo jogável em HTML + Canvas: dois bonecos, bola, gols, CPU e painel de ajuste com sliders.
@@ -64,3 +64,10 @@ Formato decidido pelo Estêvan: elenco fixo de personagens (v0.15) e, na carreir
 - Por baixo: cada jogador tem atributos (velocidade, pulo, chute, tamanho da cabeça), todos 1 por enquanto, prontos para o elenco da v0.15. O especial genérico antigo (`SPECIALS`, `tryPower`) saiu.
 - Controle de Xbox (no computador e no celular): analógico ou direcional anda, A pula, X cavadinha, B voleio, Y domínio, RT/LT pique, RB/LB especial, Menu pausa, Exibir pula o passo do treino (ou leva ao menu na pausa). Navega pelo menu, pela pausa, pelo fim de jogo e pelas telas da carreira e do vestiário (LB/RB trocam a aba). No celular, os botões da tela somem enquanto o controle está em uso (o campo ganha a faixa de baixo) e voltam ao tocar na tela; com dois controles ligados, aparece o modo 2 jogadores. As dicas (pausa, treino, menu) mostram os botões do controle.
 - Testes: novos `testes/especiais.py` e `testes/controle.py` (controle simulado).
+- Publicada no link do claude.ai em 05/11/2026, a última versão publicada por lá.
+
+## Organização do projeto (05/11/2026)
+Sem mudança no jogo.
+- O projeto foi para um repositório público no GitHub, e o link dos amigos passa a ser o GitHub Pages: publicar é dar push na `main`.
+- Docs reorganizados, com cada informação num lugar só: `estado.md` (como funciona), `plano.md` (pendências), `historico.md` (versões). O `CLAUDE.md` ficou enxuto e não carrega mais os outros docs em toda conversa.
+- Notas desta máquina saíram dos docs e foram para o `CLAUDE.local.md`, fora do git.

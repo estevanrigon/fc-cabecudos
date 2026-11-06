@@ -3,7 +3,9 @@
 Feito em 05/11/2026, a partir da v0.12, lendo o código e os docs (sem rodada de jogo nesta análise).
 
 Feito na v0.13 (05/11/2026): fases 0 e 1, menos a rodada com os amigos.
-Feito na v0.14 (05/11/2026): fase 2 menos o elenco de personagens com atributos (fica para a v0.15; o modelo de dados já está pronto).
+Feito na v0.14 (05/11/2026): fase 2 menos o elenco de personagens com atributos (fica para a v0.15; o modelo de dados já está pronto), e o controle de Xbox da fase 7.
+
+Este arquivo é o único lugar das pendências e das decisões em aberto.
 
 Legenda: **P** = um pedido curto · **M** = uma sessão de trabalho · **G** = várias sessões · ❓ = precisa da tua decisão antes.
 
@@ -13,13 +15,13 @@ Legenda: **P** = um pedido curto · **M** = uma sessão de trabalho · **G** = v
 
 **O que falta para ficar legal de verdade:**
 
-1. **Todo mundo joga igual.** Os dois bonecos têm a mesma física; o rival só muda de cara. Não há personagens, atributos nem especiais, e é isso que mais faz falta num jogo desse gênero.
-2. **Quem abre pela primeira vez não sabe jogar.** Não tem treino. No celular as teclas nem aparecem, e a diferença entre cavadinha, voleio e domínio só se descobre tentando.
+1. **Todo mundo joga igual.** Os dois bonecos têm a mesma física; o rival só muda de cara. Não há personagens, atributos nem especiais, e é isso que mais faz falta num jogo desse gênero. *(Especiais na v0.14; falta o elenco com atributos.)*
+2. ~~**Quem abre pela primeira vez não sabe jogar.**~~ *Resolvido na v0.13 (treino guiado, controles na pausa).*
 3. **A CPU é previsível.** Ela segue a bola, chuta e pula, mas não domina, não tem estilo próprio e não muda de plano pelo placar. Depois de algumas partidas dá para achar o "jeito" de ganhar sempre.
 4. **Pouca variedade.** Dois campos, um formato de partida, e a carreira acaba depois de uns 27 jogos ("Defender o título" só repete a Liga Suprema).
 5. **Som sem trilha.** Os efeitos são bons, mas não há música nem torcida reagindo ao lance; o silêncio entre as jogadas deixa a partida fria.
 6. **Nada para fazer com os amigos.** O link é para jogar sozinho; não dá para comparar resultado nem desafiar ninguém.
-7. **Sem rede de segurança.** A pasta ainda não tem git: se uma mudança estragar algo, não há como voltar.
+7. ~~**Sem rede de segurança.**~~ *Resolvido: git desde a v0.12 e repositório no GitHub.*
 
 ## Fase 0: fundação (antes de tudo)
 
@@ -52,6 +54,7 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 - [ ] Elenco de 8 personagens originais (nome, visual, especial); os adversários da carreira passam a usar o elenco. **G**
 - [x] CPU usando o especial na hora certa (v0.14). **P/M**
 - [x] Números de cada especial em `DEF` e `SPEC`, para ajustares no painel (v0.14). **P**
+- [ ] Ajustar os números dos especiais jogando (grupo "Especiais" do painel) e mandar o bloco "física vX". **P** (do teu lado)
 
 ## Fase 3: CPU com cabeça
 
@@ -96,8 +99,8 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 - [ ] Desafio do dia: todo mundo joga a mesma partida (adversário e reposições sorteados pela data) e copia o resultado num texto para o grupo. **M**
 - [ ] Código de salvamento para levar a carreira de um aparelho para outro (pendência oferecida). **P/M**
 - [ ] Dois jogadores no mesmo tablet, cada um com metade dos controles. **M**
-- [ ] Controle de videogame no computador (um por jogador). **P/M**
-- [ ] Investigar se dá para ter ranking entre amigos: hoje quem abre pelo link público não grava na conta. **P** (só investigar)
+- [x] Controle de videogame no computador e no celular, um por jogador (v0.14). **P/M**
+- [ ] Investigar se dá para ter ranking entre amigos: no GitHub Pages cada um salva só no próprio navegador, então precisaria de um serviço à parte. **P** (só investigar)
 - [ ] Longo prazo: online 1x1 precisa de servidor, então fica fora do arquivo único por enquanto.
 
 ## Fase 8: polimento e cuidado
@@ -107,6 +110,7 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 - [ ] Vibração curta no celular (Android) no chute e no gol. **P**
 - [ ] Abertura com o escudo enquanto as fontes carregam. **P**
 - [ ] Testar em celular de verdade (Android e iPhone) a cada versão grande. **P** (do teu lado)
+- [ ] Testar com um controle de Xbox de verdade no link do GitHub Pages (até aqui, só controle simulado). **P** (do teu lado)
 - [ ] Manter o código arrumado conforme cresce (arquivo único, marcadores de seção, um bloco próprio para personagens e especiais). **P**
 - [ ] Teste automático para cada sistema novo (especiais, estilos de CPU, modos). Vai junto de cada item.
 
@@ -121,7 +125,7 @@ Objetivo: quem abre o link entende os controles e faz um gol bonito no primeiro 
 | v0.17 | música, torcida, comemorações | barato e muda muito a sensação |
 | v0.18 | campos dos degraus de cima + modos rápidos | variedade |
 | v0.19 | carreira: pós-título, rival, troféus, conquistas | motivo para continuar jogando |
-| v0.20 | desafio do dia, código de salvamento, controle de videogame | o jogo já tem o que mostrar aos amigos |
+| v0.20 | desafio do dia, código de salvamento | o jogo já tem o que mostrar aos amigos |
 
 ## Decisões que são tuas (❓)
 
